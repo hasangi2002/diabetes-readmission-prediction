@@ -1,6 +1,7 @@
 pandas
 numpy
-scikit-learn
+scipy
+scikit-learn>=1.4
 xgboost
 lightgbm
 matplotlib
