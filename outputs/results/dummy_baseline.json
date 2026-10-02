@@ -1,0 +1,10 @@
+{
+  "Majority class": {
+    "cv_macro_f1": 0.2304861863648763,
+    "cv_accuracy": 0.5284193056034402
+  },
+  "Random (class priors)": {
+    "cv_macro_f1": 0.33491672791718047,
+    "cv_accuracy": 0.42075158126356554
+  }
+}
