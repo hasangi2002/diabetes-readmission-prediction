@@ -1,0 +1,6 @@
+model,baseline macro-F1,tuned macro-F1,std (folds),tuned - baseline,train macro-F1,over-fit gap,macro-recall,ROC-AUC (OvR),PR-AUC <30,recall <30,accuracy,fit s/fold,search
+LightGBM,0.4514,0.4572,0.005,0.0058,0.5435,0.0863,0.4783,0.6743,0.2301,0.4082,0.5164,5.8389,random (6 min)
+XGBoost,0.4515,0.4556,0.0055,0.0042,0.6616,0.2059,0.4675,0.6692,0.2207,0.3401,0.524,11.8421,random (7 min)
+Random Forest,0.4437,0.4425,0.0068,-0.0011,0.555,0.1125,0.4571,0.6599,0.2151,0.3499,0.5197,61.1819,random (30 min)
+Logistic Regression,0.4239,0.4294,0.0044,0.0054,0.4527,0.0233,0.4544,0.6534,0.2085,0.4102,0.4911,8.4446,grid (2 min)
+Decision Tree,0.3851,0.4066,0.0161,0.0214,0.4075,0.0009,0.4405,0.6302,0.1878,0.4111,0.4858,1.2947,grid (1 min)
