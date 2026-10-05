@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
-  Activity, BedDouble, CalendarDays, ClipboardList, FlaskConical,
+  Activity, BedDouble, CalendarDays, ClipboardList,
   Heart, Pill, Stethoscope,
 } from 'lucide-react';
 import FormSection from './FormSection.jsx';
@@ -110,18 +110,18 @@ export default function PredictionForm({ onSubmit, loading }) {
       </div>
     </FormSection>
 
-    <FormSection title="Healthcare utilization" description="Recent care use and services during this visit" icon={Activity}>
+    <FormSection title="Healthcare utilization" description="Recent care and services during this encounter" icon={Activity}>
       <div className="form-grid three-col">
         <NumberField name="number_outpatient" label="Previous outpatient visits" min={0} max={42} value={form.number_outpatient} onChange={update} hint="Visits in the year before this encounter." />
         <NumberField name="number_emergency" label="Previous emergency visits" min={0} max={76} value={form.number_emergency} onChange={update} hint="Visits in the year before this encounter." />
         <NumberField name="number_inpatient" label="Previous inpatient visits" min={0} max={21} value={form.number_inpatient} onChange={update} hint="Inpatient visits in the year before this encounter." />
         <NumberField name="num_medications" label="Medications during stay" min={0} max={81} value={form.num_medications} onChange={update} />
         <NumberField name="num_procedures" label="Procedures during stay" min={0} max={6} value={form.num_procedures} onChange={update} />
-        <NumberField name="number_diagnoses" label="Diagnoses recorded" min={1} max={16} value={form.number_diagnoses} onChange={update} />
+        <NumberField name="number_diagnoses" label="Number of diagnoses" min={1} max={16} value={form.number_diagnoses} onChange={update} />
       </div>
     </FormSection>
 
-    <FormSection title="Clinical information" description="Primary and secondary diagnosis codes" icon={Stethoscope}>
+    <FormSection title="Clinical information" description="Diagnosis codes and laboratory results" icon={Stethoscope}>
       <p className="section-help">Search for an ICD-9 code from the study dataset. Use “Not recorded” when a code is unavailable.</p>
       <div className="form-grid three-col">
         {['diag_1', 'diag_2', 'diag_3'].map((name, i) => <label className="field-wrap" htmlFor={name} key={name}>
@@ -129,27 +129,27 @@ export default function PredictionForm({ onSubmit, loading }) {
           <input list={`${name}-codes`} id={name} name={name} value={form[name]} onChange={update} required maxLength={10} pattern="(?:[VE][0-9]{2,3}(?:\.[0-9]{1,2})?|[0-9]{1,3}(?:\.[0-9]{1,2})?|\?)" placeholder="Search or type a code" />
           <datalist id={`${name}-codes`}><option value="?">Not recorded</option>{diagnosisOptions}</datalist>
         </label>)}
-      </div>
-    </FormSection>
-
-    <FormSection title="Laboratory information" description="Testing and laboratory procedures during the stay" icon={FlaskConical}>
-      <div className="form-grid three-col">
         <NumberField name="num_lab_procedures" label="Laboratory procedures" min={0} max={132} value={form.num_lab_procedures} onChange={update} />
         <SelectField name="max_glu_serum" label="Highest glucose result" hint="Select the result category, or None if not tested." value={form.max_glu_serum} onChange={update} options={labs} />
         <SelectField name="A1Cresult" label="HbA1c result" hint="Select the result category, or None if not tested." value={form.A1Cresult} onChange={update} options={['None', '>7', '>8', 'Norm', '?']} />
       </div>
     </FormSection>
 
-    <FormSection title="Diabetes medication" description="Medication changes and prescribed diabetes therapies" icon={Pill}>
+    <FormSection title="Diabetes medications" description="Diabetes therapies recorded during the encounter" icon={Pill}>
       <div className="form-grid three-col">
-        <SelectField name="change" label="Medication changed during stay" hint="Indicates whether a diabetes medication dose or type changed." value={form.change} onChange={update} options={changeOptions} />
-        <SelectField name="diabetesMed" label="Diabetes medication prescribed" value={form.diabetesMed} onChange={update} options={['Yes', 'No', '?']} />
         {Object.entries(medNames).map(([name, label]) => <SelectField key={name} name={name} label={label} value={form[name]} onChange={update} options={limitedMedicationOptions[name] || medicationOptions} />)}
       </div>
       <p className="medication-note"><CalendarDays size={15} />Choose the status recorded for this encounter: no use, unchanged dose, dose increased, or dose decreased.</p>
     </FormSection>
 
-    <div className="form-submit-row"><span><span className="required-mark">*</span> Required field</span><button className="primary-button" type="submit" disabled={loading}><ClipboardList size={17} />{loading ? 'Generating…' : 'Generate prediction'}</button></div>
+    <FormSection title="Medication changes" description="Overall changes and prescription status" icon={CalendarDays}>
+      <div className="form-grid three-col">
+        <SelectField name="change" label="Medication changed during stay" hint="Indicates whether a diabetes medication dose or type changed." value={form.change} onChange={update} options={changeOptions} />
+        <SelectField name="diabetesMed" label="Diabetes medication prescribed" value={form.diabetesMed} onChange={update} options={['Yes', 'No', '?']} />
+      </div>
+    </FormSection>
+
+    <div className="form-submit-row"><span><span className="required-mark">*</span> Required field</span><button className="primary-button" type="submit" disabled={loading}><ClipboardList size={17} />{loading ? 'Generating prediction…' : 'Predict Readmission'}</button></div>
     {formError && <p className="inline-error" role="alert">{formError}</p>}
   </form>;
 }

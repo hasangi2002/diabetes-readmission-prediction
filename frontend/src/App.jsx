@@ -36,7 +36,7 @@ export default function App() {
   }, []);
 
   return <div className="app-shell">
-    <Sidebar open={sidebarOpen} onMenu={() => setSidebarOpen(true)} onClose={() => setSidebarOpen(false)} />
+    <Sidebar open={sidebarOpen} onMenu={() => setSidebarOpen(true)} onClose={() => setSidebarOpen(false)} apiStatus={apiStatus} />
     <div className="main-column">
       <header className="topbar"><div className="topbar-left"><div className="breadcrumb"><span>Workspace</span><span className="breadcrumb-slash">/</span><strong>{currentTitle}</strong></div><div className="topbar-context">Diabetes Readmission Prediction</div></div>
         <div className="topbar-actions"><div className={`connection-status ${apiStatus}`}><span className="connection-indicator">{apiStatus === 'online' ? <Wifi size={14} /> : apiStatus === 'offline' ? <WifiOff size={14} /> : <span className="tiny-spinner" />}</span><span>{apiStatus === 'online' ? 'API connected' : apiStatus === 'checking' ? 'Connecting' : 'API unavailable'}</span></div><span className="topbar-divider" /><Link to="/about" className="icon-button help-button" aria-label="About this project"><CircleHelp size={18} /></Link><div className="user-chip"><div className="user-avatar"><HeartPulse size={16} /></div><div><strong>Academic workspace</strong><small>Read-only model</small></div></div></div>

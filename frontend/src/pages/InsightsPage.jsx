@@ -5,7 +5,7 @@ import SectionCard from '../components/SectionCard.jsx';
 import StatCard from '../components/StatCard.jsx';
 import insights from '../data/insights.json';
 
-const classColors = { '<30': '#247b56', '>30': '#d4a04b', NO: '#98aaa1' };
+const classColors = { '<30': '#087f5b', '>30': '#4caf88', NO: '#cbd5d0' };
 
 export default function InsightsPage() {
   return <>
