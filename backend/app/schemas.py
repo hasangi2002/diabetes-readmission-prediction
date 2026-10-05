@@ -82,7 +82,9 @@ class PredictionRequest(BaseModel):
     @field_validator("diag_1", "diag_2", "diag_3")
     @classmethod
     def valid_diagnosis_code(cls, value: str) -> str:
-        if value != "?" and not re.fullmatch(r"(?:[VE][0-9]{2,3}|[0-9]{3}(?:\.[0-9]{1,2})?)", value):
+        # The source data includes numeric diagnosis values shorter than three
+        # digits as well as standard 3-digit and decimal ICD-9 forms.
+        if value != "?" and not re.fullmatch(r"(?:[VE][0-9]{2,3}(?:\.[0-9]{1,2})?|[0-9]{1,3}(?:\.[0-9]{1,2})?)", value):
             raise ValueError("must be an ICD-9 diagnosis code or ? for missing")
         return value
 
