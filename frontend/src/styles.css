@@ -120,3 +120,77 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 520px) {
   .topbar { height: 58px; }.breadcrumb { font-size: 10px; gap: 6px; }.user-avatar { width: 29px; height: 29px; }.page-content { padding: 18px 12px 28px; }.app-footer { align-items: flex-start; flex-direction: column; gap: 5px; padding-inline: 12px; }.welcome-panel { min-height: 235px; padding: 21px 17px 48px; }.welcome-copy h2 { font-size: 26px; }.welcome-copy p { max-width: 300px; font-size: 11px; }.welcome-visual { right: -112px; opacity: .17; }.welcome-bottom { left: 14px; right: 12px; }.stats-grid { gap: 9px; margin: 12px 0; }.stat-card { min-height: 117px; padding: 12px; }.stat-value { font-size: 19px; }.section-card { padding: 14px; margin-bottom: 12px; }.section-card-head { margin-bottom: 10px; }.section-card-head h2 { font-size: 12px; }.distribution-layout { grid-template-columns: 1fr; gap: 2px; }.donut-wrap { width: 205px; height: 190px; margin: 0 auto; }.distribution-list { grid-template-columns: 1fr; }.distribution-row { padding: 7px 0; }.outcome-card { gap: 8px; padding: 10px; }.outcome-card > span { display: none; }.dashboard-footnote { flex-direction: column; gap: 7px; }.three-col { grid-template-columns: 1fr 1fr; gap: 11px 9px; }.form-section-content { padding: 2px 13px 14px; }.form-section-head { padding: 12px 13px 10px; }.form-intro { gap: 7px; padding: 14px 13px; }.form-completion { display: none; }.form-intro h2 { font-size: 13px; }.form-section-title strong { font-size: 10px; }.form-section-title small { font-size: 8px; }.field-label { font-size: 8px; }.field-wrap input,.field-wrap select { height: 34px; padding-inline: 8px; font-size: 9px; }.field-hint { display: none; }.range-hint { font-size: 7px; }.form-submit-row { padding: 12px 13px; }.form-submit-row .primary-button { padding-inline: 9px; font-size: 9px; }.prediction-form { border-radius: 9px; }.step-chip { max-width: 100%; padding: 6px 8px; font-size: 8px; }.aside-sticky { grid-template-columns: 1fr; }.aside-heading { grid-column: auto; }.aside-tip { grid-template-columns: 1fr; }.aside-tip strong { font-size: 9px; }.aside-tip p { margin-top: 3px; }.result-head { padding: 13px; }.result-badge { font-size: 7px; }.result-body { padding: 12px; }.probability-legend { gap: 4px; }.probability-legend > div { gap: 4px; }.probability-legend > div > span:nth-child(2) { font-size: 7px; }.probability-legend strong { font-size: 9px; }.insights-grid .section-card { min-height: 325px; }.utilization-row > div { padding-inline: 8px; }.utilization-row strong { font-size: 18px; }.utilization-row span { font-size: 8px; }.utilization-row small { font-size: 7px; }.metric-grid { gap: 8px; }.metric-card { min-height: 102px; padding: 12px; }.metric-number { font-size: 20px; }.performance-chart .recharts-yAxis .recharts-cartesian-axis-tick { font-size: 9px; }.chart-note { flex-wrap: wrap; }.chart-source { width: 100%; margin: 5px 0 0; }.importance-table > div { grid-template-columns: 18px minmax(85px,1.4fr) minmax(30px,1fr) 45px; gap: 6px; }.importance-table strong { font-size: 8px; }.about-hero { gap: 11px; padding: 15px; }.about-mark { width: 38px; height: 38px; }.about-hero h3 { font-size: 13px; }.about-hero p { font-size: 9px; }
 }
+
+/* Shared readability pass: keep the existing light clinical layout while
+   bringing compact labels and supporting text up to comfortable sizes. */
+.brand-overline, .eyebrow { font-size: 11px; }
+.brand-name { font-size: 15px; }
+.nav-caption { font-size: 11px; }
+.nav-item { font-size: 14px; }
+.academic-note strong { font-size: 12px; }
+.academic-note p, .sidebar-foot, .topbar-context, .user-chip small { font-size: 11px; }
+.breadcrumb { font-size: 13px; }
+.connection-status, .user-chip strong { font-size: 12px; }
+.app-footer { font-size: 12px; }
+.welcome-copy p, .page-intro p { font-size: 15px; }
+.primary-button { min-height: 44px; font-size: 14px; }
+.visual-tag, .welcome-bottom { font-size: 11px; }
+.stat-label { font-size: 13px; }
+.stat-detail { font-size: 12px; }
+.section-card-head h2 { font-size: 17px; }
+.section-card-head p, .distribution-row strong, .outcome-card strong,
+.snapshot-metrics > div span { font-size: 13px; }
+.distribution-row small, .distribution-number, .outcome-card p,
+.dashboard-footnote, .text-action { font-size: 12px; }
+.page-intro h2 { font-size: clamp(28px, 2.5vw, 32px); }
+.source-chip, .step-chip { font-size: 12px; }
+.aside-heading strong { font-size: 14px; }
+.aside-heading small, .aside-tip strong, .aside-tip p, .aside-model strong { font-size: 12px; }
+.aside-model small, .gentle-warning p { font-size: 13px; }
+.form-intro h2 { font-size: 18px; }
+.form-intro p, .form-section-title small, .section-help, .medication-note,
+.range-hint, .form-submit-row > span { font-size: 12px; }
+.form-completion span { font-size: 10px; }
+.form-completion strong, .form-section-title strong { font-size: 14px; }
+.field-label { min-height: 19px; font-size: 14px; }
+.field-wrap input, .field-wrap select { height: 44px; border-radius: 8px; font-size: 15px; }
+.field-hint { width: 16px; height: 16px; font-size: 11px; }
+.inline-error, .reset-button, .loading-state strong, .error-message strong { font-size: 13px; }
+.loading-state span, .error-message p, .error-message button { font-size: 12px; }
+.result-head h2, .result-head strong, .result-chart-head h3 { font-size: 14px; }
+.result-class { font-size: 28px; }
+.result-badge, .result-chart-head p, .prob-info,
+.probability-legend > div > span:nth-child(2), .probability-caveat { font-size: 12px; }
+.probability-legend strong { font-size: 14px; }
+.result-disclaimer p { font-size: 13px; }
+.utilization-row span, .metric-top, .performance-notes strong,
+.importance-table strong, .about-card h2, .disclaimer-panel strong { font-size: 13px; }
+.utilization-row small, .metric-note, .performance-notes p,
+.chart-note, .importance-table b, .about-card p, .about-hero p,
+.disclaimer-panel p, .data-caveat, .interpretation-callout p { font-size: 12px; }
+.importance-table > div > span { font-size: 11px; }
+.stat-icon-blue, .stat-icon-violet, .stat-icon-gold { color: #347c58; background: #eaf4ed; }
+
+@media (max-width: 780px) {
+  .connection-status { font-size: 12px; }
+  .page-content { padding-top: 22px; }
+}
+
+@media (max-width: 520px) {
+  .breadcrumb { font-size: 12px; }
+  .welcome-copy p { font-size: 14px; }
+  .welcome-bottom { font-size: 11px; }
+  .section-card-head h2 { font-size: 16px; }
+  .form-intro h2 { font-size: 17px; }
+  .form-section-title strong { font-size: 14px; }
+  .form-section-title small { font-size: 12px; }
+  .field-label { font-size: 13px; }
+  .field-wrap input, .field-wrap select { height: 44px; font-size: 15px; }
+  .range-hint, .section-help, .medication-note { font-size: 12px; }
+  .three-col { grid-template-columns: 1fr; }
+  .result-badge { font-size: 11px; }
+  .probability-legend > div > span:nth-child(2) { font-size: 11px; }
+  .probability-legend strong { font-size: 13px; }
+  .metric-top, .metric-note, .chart-note, .about-card p { font-size: 11px; }
+  .about-card h2 { font-size: 14px; }
+}

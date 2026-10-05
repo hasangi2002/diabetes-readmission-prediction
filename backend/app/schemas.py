@@ -13,6 +13,16 @@ MEDICAL_SPECIALTIES = {
     "AllergyandImmunology", "Anesthesiology", "Anesthesiology-Pediatric", "Cardiology", "Cardiology-Pediatric", "DCPTEAM", "Dentistry", "Dermatology", "Emergency/Trauma", "Endocrinology", "Endocrinology-Metabolism", "Family/GeneralPractice", "Gastroenterology", "Gynecology", "Hematology", "Hematology/Oncology", "Hospitalist", "InfectiousDiseases", "InternalMedicine", "Nephrology", "Neurology", "Neurophysiology", "Obsterics&Gynecology-GynecologicOnco", "Obstetrics", "ObstetricsandGynecology", "Oncology", "Ophthalmology", "Orthopedics", "Orthopedics-Reconstructive", "Osteopath", "Otolaryngology", "OutreachServices", "Pathology", "Pediatrics", "Pediatrics-AllergyandImmunology", "Pediatrics-CriticalCare", "Pediatrics-EmergencyMedicine", "Pediatrics-Endocrinology", "Pediatrics-Hematology-Oncology", "Pediatrics-InfectiousDiseases", "Pediatrics-Neurology", "Pediatrics-Pulmonology", "Perinatology", "PhysicalMedicineandRehabilitation", "PhysicianNotFound", "Podiatry", "Proctology", "Psychiatry", "Psychiatry-Addictive", "Psychiatry-Child/Adolescent", "Psychology", "Pulmonology", "Radiologist", "Radiology", "Resident", "Rheumatology", "Speech", "SportsMedicine", "Surgeon", "Surgery-Cardiovascular", "Surgery-Cardiovascular/Thoracic", "Surgery-Colon&Rectal", "Surgery-General", "Surgery-Maxillofacial", "Surgery-Neuro", "Surgery-Pediatric", "Surgery-Plastic", "Surgery-PlasticwithinHeadandNeck", "Surgery-Thoracic", "Surgery-Vascular", "SurgicalSpecialty", "Urology", "?"
 }
 
+# Observed ID categories from the source dataset. Death and hospice discharge
+# codes are excluded by src.preprocessing.exclude_expired_hospice, so they are
+# not valid inputs for a model trained on the resulting encounter population.
+ADMISSION_TYPE_IDS = {1, 2, 3, 4, 5, 6, 7, 8}
+DISCHARGE_DISPOSITION_IDS = {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 16, 17, 18,
+    22, 23, 24, 25, 27, 28,
+}
+ADMISSION_SOURCE_IDS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 20, 22, 25}
+
 # Numeric values and constrained categories are taken from the UCI source dataset.
 # Diagnosis and specialty codes are intentionally strings: their vocabularies are broad.
 class PredictionRequest(BaseModel):
@@ -64,6 +74,27 @@ class PredictionRequest(BaseModel):
     metformin_pioglitazone: Literal["No", "Steady", "?"] = Field(alias="metformin-pioglitazone")
     change: Literal["No", "Ch", "?"]
     diabetesMed: Literal["No", "Yes", "?"]
+
+    @field_validator("admission_type_id")
+    @classmethod
+    def known_admission_type(cls, value: int) -> int:
+        if value not in ADMISSION_TYPE_IDS:
+            raise ValueError("must be an admission category present in the source dataset")
+        return value
+
+    @field_validator("discharge_disposition_id")
+    @classmethod
+    def supported_discharge_disposition(cls, value: int) -> int:
+        if value not in DISCHARGE_DISPOSITION_IDS:
+            raise ValueError("must be a supported discharge category; death and hospice discharges are excluded")
+        return value
+
+    @field_validator("admission_source_id")
+    @classmethod
+    def known_admission_source(cls, value: int) -> int:
+        if value not in ADMISSION_SOURCE_IDS:
+            raise ValueError("must be an admission source category present in the source dataset")
+        return value
 
     @field_validator("payer_code")
     @classmethod

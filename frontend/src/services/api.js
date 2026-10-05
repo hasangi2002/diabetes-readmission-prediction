@@ -13,7 +13,7 @@ export const getPrediction = (payload) => api.post('/api/predict', payload).then
 export function getApiErrorMessage(error) {
   if (error?.response?.status === 422) {
     const detail = error.response.data?.detail;
-    if (Array.isArray(detail)) return 'Please review the highlighted fields and try again.';
+    if (Array.isArray(detail)) return 'Some required values are missing or invalid. Review the form fields and try again.';
     return detail || 'Some values were not accepted. Please review the form.';
   }
   if (error?.response) return error.response.data?.detail || 'The prediction service could not complete this request.';

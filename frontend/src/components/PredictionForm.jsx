@@ -47,7 +47,11 @@ function NumberField({ name, label, value, onChange, min, max, hint, required = 
   </label>;
 }
 
-const codes = (max) => Array.from({ length: max }, (_, i) => ({ value: i + 1, label: `Category ${String(i + 1).padStart(2, '0')}` }));
+const codes = (values) => values.map((value) => ({ value, label: `Category ${String(value).padStart(2, '0')}` }));
+const admissionTypeCodes = [1, 2, 3, 4, 5, 6, 7, 8];
+// Death and hospice dispositions were excluded from the model development data.
+const dischargeDispositionCodes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 16, 17, 18, 22, 23, 24, 25, 27, 28];
+const admissionSourceCodes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 17, 20, 22, 25];
 const changeOptions = ['No', 'Ch', '?'];
 const medicationOptions = ['No', 'Steady', 'Up', 'Down', '?'];
 const limitedMedicationOptions = {
@@ -101,9 +105,9 @@ export default function PredictionForm({ onSubmit, loading }) {
 
     <FormSection title="Hospital admission" description="How and where the encounter began and ended" icon={BedDouble}>
       <div className="form-grid three-col">
-        <SelectField name="admission_type_id" label="Admission type" value={form.admission_type_id} onChange={update} options={codes(8)} hint="Choose the recorded admission category." />
-        <SelectField name="discharge_disposition_id" label="Discharge disposition" value={form.discharge_disposition_id} onChange={update} options={codes(28)} hint="Choose the discharge category recorded for this encounter." />
-        <SelectField name="admission_source_id" label="Admission source" value={form.admission_source_id} onChange={update} options={codes(25)} hint="Choose where the patient was referred from." />
+        <SelectField name="admission_type_id" label="Admission type" value={form.admission_type_id} onChange={update} options={codes(admissionTypeCodes)} hint="Choose the recorded admission category." />
+        <SelectField name="discharge_disposition_id" label="Discharge disposition" value={form.discharge_disposition_id} onChange={update} options={codes(dischargeDispositionCodes)} hint="Choose a discharge category supported by the model development data." />
+        <SelectField name="admission_source_id" label="Admission source" value={form.admission_source_id} onChange={update} options={codes(admissionSourceCodes)} hint="Choose where the patient was referred from." />
         <NumberField name="time_in_hospital" label="Length of stay (days)" min={1} max={14} value={form.time_in_hospital} onChange={update} />
         <SelectField name="payer_code" label="Insurance / payer" value={form.payer_code} onChange={update} options={['MC', 'MD', 'HM', 'UN', 'BC', 'SP', 'CP', 'SI', 'DM', 'CM', 'CH', 'PO', 'WC', 'OT', 'OG', 'MP', 'FR', '?']} hint="Select the payer code recorded in the encounter." />
         <SelectField name="medical_specialty" label="Admitting specialty" value={form.medical_specialty} onChange={update} options={[...insights.specialties, '?']} hint="The specialty of the physician associated with the encounter." />
