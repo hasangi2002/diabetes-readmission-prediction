@@ -1,3 +1,4 @@
+import React from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const COLORS = { '<30': '#287b58', '>30': '#d39b42', NO: '#859c92' };

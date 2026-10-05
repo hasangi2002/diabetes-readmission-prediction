@@ -1,3 +1,4 @@
+import React from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Activity, ClipboardList, Pill, TrendingUp } from 'lucide-react';
 import SectionCard from '../components/SectionCard.jsx';

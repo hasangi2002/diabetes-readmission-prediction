@@ -1,3 +1,4 @@
+import React from 'react';
 import { AlertCircle, RotateCcw } from 'lucide-react';
 
 export default function ErrorMessage({ message, onRetry }) {

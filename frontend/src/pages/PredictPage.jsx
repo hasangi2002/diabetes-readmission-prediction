@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Info, RotateCcw } from 'lucide-react';
 import PredictionForm from '../components/PredictionForm.jsx';
 import ResultCard from '../components/ResultCard.jsx';

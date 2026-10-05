@@ -1,3 +1,4 @@
+import React from 'react';
 export default function StatCard({ icon: Icon, label, value, detail, accent = 'green' }) {
   return <article className="stat-card">
     <div className={`stat-icon stat-icon-${accent}`}><Icon size={19} strokeWidth={1.9} /></div>

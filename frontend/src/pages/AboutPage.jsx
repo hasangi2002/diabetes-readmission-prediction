@@ -1,3 +1,4 @@
+import React from 'react';
 import { Activity, BookOpenCheck, Database, HeartPulse, ShieldAlert } from 'lucide-react';
 import SectionCard from '../components/SectionCard.jsx';
 
