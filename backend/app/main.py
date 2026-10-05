@@ -52,7 +52,12 @@ def make_prediction(request: PredictionRequest) -> dict:
         raise HTTPException(status_code=503, detail="Prediction model is currently unavailable") from exc
     except RuntimeError as exc:
         logger.exception("Prediction request failed")
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        # Exception text can contain implementation or artifact details. Keep
+        # the client message stable and useful while retaining details in logs.
+        raise HTTPException(
+            status_code=500,
+            detail="Prediction could not be generated for this input",
+        ) from exc
     except Exception as exc:
         logger.exception("Unexpected prediction failure")
         raise HTTPException(status_code=500, detail="Prediction could not be completed") from exc
