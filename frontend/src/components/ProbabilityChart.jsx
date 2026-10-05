@@ -1,6 +1,7 @@
+import React from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-const COLORS = { '<30': '#287b58', '>30': '#d39b42', NO: '#859c92' };
+const COLORS = { '<30': '#4caf88', '>30': '#7db79c', NO: '#cbd5d0' };
 const NAMES = { '<30': 'Within 30 days', '>30': 'After 30 days', NO: 'Not readmitted' };
 
 export default function ProbabilityChart({ result }) {
@@ -9,6 +10,7 @@ export default function ProbabilityChart({ result }) {
     { code: '>30', name: NAMES['>30'], probability: result.probability_gt30 * 100 },
     { code: 'NO', name: NAMES.NO, probability: result.probability_no * 100 },
   ];
+  const colorFor = (code) => code === result.predicted_class ? '#087f5b' : COLORS[code];
   return <div className="probability-chart" aria-label="Probability distribution for all three outcomes">
     <ResponsiveContainer width="100%" height={146}>
       <BarChart data={data} layout="vertical" margin={{ top: 1, right: 25, bottom: 0, left: 5 }} barSize={17}>
@@ -17,10 +19,10 @@ export default function ProbabilityChart({ result }) {
         <YAxis type="category" dataKey="code" width={43} tick={{ fill: '#42574d', fontSize: 12, fontWeight: 700 }} axisLine={false} tickLine={false} />
         <Tooltip formatter={(value) => [`${Number(value).toFixed(1)}%`, 'Probability']} labelFormatter={(label) => NAMES[label]} cursor={{ fill: '#f4f7f5' }} />
         <Bar dataKey="probability" radius={[0, 5, 5, 0]}>
-          {data.map((entry) => <Cell key={entry.code} fill={COLORS[entry.code]} />)}
+          {data.map((entry) => <Cell key={entry.code} fill={colorFor(entry.code)} />)}
         </Bar>
       </BarChart>
     </ResponsiveContainer>
-    <div className="probability-legend">{data.map((entry) => <div key={entry.code}><span style={{ background: COLORS[entry.code] }} /><span>{entry.name}</span><strong>{entry.probability.toFixed(1)}%</strong></div>)}</div>
+    <div className="probability-legend">{data.map((entry) => <div key={entry.code}><span style={{ background: colorFor(entry.code) }} /><span>{entry.name}</span><strong>{entry.probability.toFixed(1)}%</strong></div>)}</div>
   </div>;
 }

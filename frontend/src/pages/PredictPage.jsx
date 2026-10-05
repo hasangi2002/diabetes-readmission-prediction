@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Info, RotateCcw } from 'lucide-react';
 import PredictionForm from '../components/PredictionForm.jsx';
 import ResultCard from '../components/ResultCard.jsx';
@@ -20,7 +20,7 @@ export default function PredictPage() {
   const submit = async (payload) => { setLastPayload(payload); await runPrediction(payload); };
   return <div className="predict-layout">
     <div className="predict-main">
-      <div className="page-intro"><div><span className="eyebrow">MODEL-ASSISTED ESTIMATE</span><h2>Predict readmission</h2><p>Enter the encounter details below to see how the saved model scores each readmission outcome.</p></div><div className="step-chip"><span>01</span> Encounter details <ArrowRight size={13} /><span>02</span> Model estimate</div></div>
+      <div className="page-intro"><div><span className="eyebrow">CLINICAL ASSESSMENT</span><h2>Predict Readmission</h2><p>Estimate each readmission outcome using the trained machine-learning model and encounter details.</p></div><div className="step-chip"><span>01</span> Encounter details <ArrowRight size={13} /><span>02</span> Model estimate</div></div>
       <div className="gentle-warning"><Info size={17} /><p><strong>For academic and decision-support use.</strong> This tool does not provide a diagnosis or replace professional clinical judgment.</p></div>
       {error && <ErrorMessage message={error} onRetry={lastPayload ? () => runPrediction(lastPayload) : undefined} />}
       {loading && <LoadingState />}

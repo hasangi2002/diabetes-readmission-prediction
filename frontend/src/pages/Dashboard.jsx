@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, ArrowDownRight, ArrowRight, ArrowUpRight, BrainCircuit, Database, Sparkles } from 'lucide-react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
@@ -7,7 +8,7 @@ import LoadingState from '../components/LoadingState.jsx';
 import ErrorMessage from '../components/ErrorMessage.jsx';
 import insights from '../data/insights.json';
 
-const colors = { '<30': '#247b56', '>30': '#d4a04b', NO: '#98aaa1' };
+const colors = { '<30': '#087f5b', '>30': '#4caf88', NO: '#cbd5d0' };
 const outcomeText = { '<30': 'Readmitted within 30 days', '>30': 'Readmitted after 30 days', NO: 'Not readmitted' };
 
 export default function Dashboard({ modelInfo, apiStatus, apiError }) {
@@ -16,8 +17,8 @@ export default function Dashboard({ modelInfo, apiStatus, apiError }) {
   const chartData = insights.readmission;
   return <>
     <section className="welcome-panel">
-      <div className="welcome-copy"><span className="eyebrow">READMISSION ANALYTICS · IT3051</span><h2>Support a clearer view<br className="desktop-break" /> of readmission risk.</h2><p>Explore encounter-level patterns and generate a model estimate from patient and hospital visit details.</p>
-        <button className="primary-button" onClick={() => navigate('/predict')}><Sparkles size={16} /> Start a prediction <ArrowRight size={16} /></button>
+      <div className="welcome-copy"><span className="eyebrow">CLINICAL ANALYTICS · IT3051</span><h2>Diabetes Readmission Prediction</h2><p>Clinical decision-support analytics for estimating hospital readmission outcomes.</p>
+        <button className="primary-button" onClick={() => navigate('/predict')}><Sparkles size={16} /> Predict Readmission <ArrowRight size={16} /></button>
       </div>
       <div className="welcome-visual" aria-hidden="true"><div className="welcome-orbit orbit-one" /><div className="welcome-orbit orbit-two" /><div className="welcome-heart"><Activity size={42} strokeWidth={1.5} /></div><div className="visual-tag tag-records"><span /> Encounter analysis</div><div className="visual-tag tag-model"><BrainCircuit size={14} /> LightGBM</div></div>
       <div className="welcome-bottom"><span className={`api-pill ${apiStatus === 'online' ? 'api-online' : ''}`}><span />{apiStatus === 'checking' ? 'Checking prediction service' : apiStatus === 'online' ? 'Prediction service connected' : 'Prediction service unavailable'}</span><span>Decision support for academic use</span></div>
@@ -25,10 +26,10 @@ export default function Dashboard({ modelInfo, apiStatus, apiError }) {
     {apiError && <ErrorMessage message={apiError} />}
 
     <div className="stats-grid">
-      <StatCard icon={Database} label="Dataset records" value={total.toLocaleString()} detail="UCI diabetes encounters" />
-      <StatCard icon={Activity} label="Prediction classes" value="03" detail="Readmission outcomes" accent="blue" />
-      <StatCard icon={BrainCircuit} label="Final model" value={modelInfo?.model_name || 'LightGBM'} detail="Selected from five candidates" accent="violet" />
-      <StatCard icon={Sparkles} label="CV Macro-F1" value={modelInfo ? Number(modelInfo.cv_macro_f1).toFixed(4) : '—'} detail="5-fold grouped validation" accent="gold" />
+      <StatCard icon={BrainCircuit} label="Final model" value={modelInfo?.model_name || 'LightGBM'} detail="Selected project classifier" />
+      <StatCard icon={Activity} label="Task" value="Multiclass" detail={modelInfo?.task || 'Diabetes readmission prediction'} accent="blue" />
+      <StatCard icon={Database} label="Outcomes" value={modelInfo?.class_labels?.length || 3} detail="<30 · >30 · NO" accent="violet" />
+      <StatCard icon={Sparkles} label="Validation metric" value={modelInfo ? Number(modelInfo.cv_macro_f1).toFixed(4) : '—'} detail="CV Macro-F1" accent="gold" />
     </div>
 
     <div className="dashboard-grid">
@@ -42,7 +43,7 @@ export default function Dashboard({ modelInfo, apiStatus, apiError }) {
     </div>
 
     <SectionCard title="Understanding the three outcomes" description="The prediction describes the readmission class estimated by the model.">
-      <div className="outcome-cards">{chartData.map((row) => <article className="outcome-card" key={row.readmitted}><div className="outcome-mark" style={{ color: colors[row.readmitted], background: `${colors[row.readmitted]}15` }}>{row.readmitted}</div><div><strong>{outcomeText[row.readmitted]}</strong><p>{row.readmitted === '<30' ? 'A subsequent readmission occurred within 30 days.' : row.readmitted === '>30' ? 'A subsequent readmission occurred after 30 days.' : 'No subsequent readmission was recorded.'}</p></div><span>{row.percentage.toFixed(1)}% of records</span></article>)}</div>
+      <div className="outcome-cards">{chartData.map((row) => <article className="outcome-card" key={row.readmitted}><div className="outcome-mark" style={{ color: row.readmitted === 'NO' ? '#5f6f67' : colors[row.readmitted], background: row.readmitted === 'NO' ? '#eef3f0' : `${colors[row.readmitted]}15` }}>{row.readmitted}</div><div><strong>{outcomeText[row.readmitted]}</strong><p>{row.readmitted === '<30' ? 'A subsequent readmission occurred within 30 days.' : row.readmitted === '>30' ? 'A subsequent readmission occurred after 30 days.' : 'No subsequent readmission was recorded.'}</p></div><span>{row.percentage.toFixed(1)}% of records</span></article>)}</div>
     </SectionCard>
     <div className="dashboard-footnote"><span><ArrowUpRight size={14} /> Dataset patterns are descriptive</span><span><ArrowDownRight size={14} /> Predictions are estimates, not clinical decisions</span></div>
   </>;
