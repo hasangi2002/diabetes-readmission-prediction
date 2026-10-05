@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, ArrowDownRight, ArrowRight, ArrowUpRight, BrainCircuit, Database, Sparkles } from 'lucide-react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';

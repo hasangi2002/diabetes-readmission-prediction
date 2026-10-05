@@ -1,3 +1,4 @@
+import React from 'react';
 import { CheckCircle2, CircleHelp, Info, TrendingUp } from 'lucide-react';
 import ProbabilityChart from './ProbabilityChart.jsx';
 

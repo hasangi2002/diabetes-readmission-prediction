@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import React from "react";
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import { CircleHelp, HeartPulse, Wifi, WifiOff } from 'lucide-react';
 import Sidebar from './components/Sidebar.jsx';

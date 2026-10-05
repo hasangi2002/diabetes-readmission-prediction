@@ -1,3 +1,4 @@
+import React from 'react';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { CircleHelp, Info, Scale } from 'lucide-react';
 import SectionCard from '../components/SectionCard.jsx';
