@@ -198,6 +198,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .primary-button { min-height: 44px; color: #fff; border: 1px solid var(--green); border-radius: 9px; background: var(--green); box-shadow: none; font-size: 14px; }
 .primary-button:hover { background: var(--green-hover); }
 .primary-button:disabled { opacity: .62; }
+.form-actions { display: flex; align-items: center; gap: 10px; }
+.secondary-button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; color: var(--text); border: 1px solid #cfe0d7; border-radius: 9px; background: var(--surface); font-size: 14px; font-weight: 600; transition: background .18s, border-color .18s, transform .18s; cursor: pointer; }
+.secondary-button:hover { background: #f5f8f6; border-color: var(--border-hover); transform: translateY(-1px); }
+.secondary-button:disabled { opacity: .62; cursor: not-allowed; transform: none; }
 .text-action { color: var(--green); }
 .text-action:hover { color: var(--green-hover); }
 .stat-card, .section-card, .metric-card, .result-card, .prediction-form, .form-section, .aside-sticky {
