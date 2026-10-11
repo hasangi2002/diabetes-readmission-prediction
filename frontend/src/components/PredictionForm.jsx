@@ -1,20 +1,58 @@
 import React, { useMemo, useState } from 'react';
 import {
   Activity, BedDouble, CalendarDays, ClipboardList,
-  Heart, Pill, Stethoscope,
+  Heart, Pill, RotateCcw, Stethoscope,
 } from 'lucide-react';
 import FormSection from './FormSection.jsx';
 import insights from '../data/insights.json';
 
-const emptyForm = {
-  race: '', gender: '', age: '', admission_type_id: '', discharge_disposition_id: '', admission_source_id: '',
-  time_in_hospital: '', payer_code: '', medical_specialty: '', num_lab_procedures: '', num_procedures: '',
-  num_medications: '', number_outpatient: '', number_emergency: '', number_inpatient: '', diag_1: '', diag_2: '', diag_3: '',
-  number_diagnoses: '', max_glu_serum: '', A1Cresult: '', metformin: '', repaglinide: '', nateglinide: '',
-  chlorpropamide: '', glimepiride: '', acetohexamide: '', glipizide: '', glyburide: '', tolbutamide: '',
-  pioglitazone: '', rosiglitazone: '', acarbose: '', miglitol: '', troglitazone: '', tolazamide: '',
-  examide: 'No', citoglipton: 'No', insulin: '', 'glyburide-metformin': '', 'glipizide-metformin': '',
-  'glimepiride-pioglitazone': '', 'metformin-rosiglitazone': '', 'metformin-pioglitazone': '', change: '', diabetesMed: '',
+const defaultForm = {
+  race: 'Caucasian',
+  gender: 'Female',
+  age: '[60-70)',
+  admission_type_id: 1,
+  discharge_disposition_id: 1,
+  admission_source_id: 7,
+  time_in_hospital: 3,
+  payer_code: 'MC',
+  medical_specialty: 'InternalMedicine',
+  num_lab_procedures: 40,
+  num_procedures: 1,
+  num_medications: 14,
+  number_outpatient: 0,
+  number_emergency: 0,
+  number_inpatient: 0,
+  diag_1: '250.83',
+  diag_2: '276',
+  diag_3: '414',
+  number_diagnoses: 7,
+  max_glu_serum: 'None',
+  A1Cresult: 'None',
+  metformin: 'No',
+  repaglinide: 'No',
+  nateglinide: 'No',
+  chlorpropamide: 'No',
+  glimepiride: 'No',
+  acetohexamide: 'No',
+  glipizide: 'No',
+  glyburide: 'No',
+  tolbutamide: 'No',
+  pioglitazone: 'No',
+  rosiglitazone: 'No',
+  acarbose: 'No',
+  miglitol: 'No',
+  troglitazone: 'No',
+  tolazamide: 'No',
+  examide: 'No',
+  citoglipton: 'No',
+  insulin: 'No',
+  'glyburide-metformin': 'No',
+  'glipizide-metformin': 'No',
+  'glimepiride-pioglitazone': 'No',
+  'metformin-rosiglitazone': 'No',
+  'metformin-pioglitazone': 'No',
+  change: 'No',
+  diabetesMed: 'No',
 };
 
 const medNames = {
@@ -69,10 +107,14 @@ const integerFields = [
 ];
 
 export default function PredictionForm({ onSubmit, loading }) {
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState(defaultForm);
   const [formError, setFormError] = useState('');
   const diagnosisOptions = useMemo(() => insights.diagnoses.map((code) => <option key={code} value={code} />), []);
   const update = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  const resetToDefaults = () => {
+    setForm(defaultForm);
+    setFormError('');
+  };
 
   const submit = async (event) => {
     event.preventDefault();
@@ -153,7 +195,23 @@ export default function PredictionForm({ onSubmit, loading }) {
       </div>
     </FormSection>
 
-    <div className="form-submit-row"><span><span className="required-mark">*</span> Required field</span><button className="primary-button" type="submit" disabled={loading}><ClipboardList size={17} />{loading ? 'Generating prediction…' : 'Predict Readmission'}</button></div>
+    <div className="form-submit-row">
+      <span><span className="required-mark">*</span> Required field</span>
+      <div className="form-actions">
+        <button
+          className="secondary-button"
+          type="button"
+          onClick={resetToDefaults}
+          disabled={loading}
+          title="Reset all fields to clinical default values"
+        >
+          <RotateCcw size={15} /> Reset to defaults
+        </button>
+        <button className="primary-button" type="submit" disabled={loading}>
+          <ClipboardList size={17} />{loading ? 'Generating prediction…' : 'Predict Readmission'}
+        </button>
+      </div>
+    </div>
     {formError && <p className="inline-error" role="alert">{formError}</p>}
   </form>;
 }
